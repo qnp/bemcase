@@ -3,6 +3,10 @@
   "displayName": "bemcase",
   "description": "Migrate kebab-cased Vue SFC BEM classes into Pascal/camel-cased ones",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qnp/bemcase.git"
+  },
   "engines": {
     "vscode": "^1.84.0"
   },
