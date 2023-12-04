@@ -1,15 +1,9 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import os from 'os';
+import { pascalCase, camelCase, kebabCase } from 'case-anything';
 
-type Formatter = (input: string) => string;
-
-function toPascalCamelBem(
-  text: string,
-  pascalCase: Formatter,
-  camelCase: Formatter
-): string {
+function toPascalCamelBem(text: string): string {
   return text
     .trim()
     .split(/(\.|\s+)/)
@@ -30,7 +24,7 @@ function toPascalCamelBem(
     .join('');
 }
 
-function toKebabBem(text: string, kebabCase: Formatter): string {
+function toKebabBem(text: string): string {
   return text
     .trim()
     .split(/(\.|\s+)/)
@@ -70,7 +64,6 @@ async function executeChangeBemCase(mode: 'kebab' | 'pascal-camel') {
   }
   const { document, selections } = editor;
   let replacementActions = [];
-  const { pascalCase, camelCase, kebabCase } = await import('change-case');
   await editor.edit((editBuilder) => {
     replacementActions = selections.map((selection) => {
       const { text, range } = getSelectedText(selection, document);
@@ -78,21 +71,18 @@ async function executeChangeBemCase(mode: 'kebab' | 'pascal-camel') {
       let offset;
       if (selection.isSingleLine) {
         replacement =
-          mode === 'kebab'
-            ? toKebabBem(text, kebabCase)
-            : toPascalCamelBem(text, pascalCase, camelCase);
+          mode === 'kebab' ? toKebabBem(text) : toPascalCamelBem(text);
         // it's possible that the replacement string is shorter or longer than the original,
         // so calculate the offsets and new selection coordinates appropriately
         offset = replacement.length - text.length;
       } else {
-        const lines = document.getText(range).split(os.EOL);
+        const newLineChar = document.eol === vscode.EndOfLine.CRLF ? '\r\n' : '\n';
+        const lines = document.getText(range).split(newLineChar);
         const replacementLines = lines.map((line) =>
-          mode === 'kebab'
-            ? toKebabBem(line, kebabCase)
-            : toPascalCamelBem(line, pascalCase, camelCase)
+          mode === 'kebab' ? toKebabBem(line) : toPascalCamelBem(line)
         );
         replacement = replacementLines.reduce(
-          (acc, v) => (!acc ? '' : acc + os.EOL) + v,
+          (acc, v) => (!acc ? '' : acc + newLineChar) + v,
           ''
         );
         offset =

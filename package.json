@@ -2,7 +2,7 @@
   "name": "bemcase",
   "displayName": "bemcase",
   "description": "Migrate kebab-cased Vue SFC BEM classes into Pascal/camel-cased ones",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "ekqnp",
   "license": "MIT",
   "icon": "bemcase.png",
@@ -35,7 +35,8 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts"
+    "lint": "eslint src --ext ts",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.3",
@@ -50,6 +51,6 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "change-case": "^5.2.0"
+    "case-anything": "^2.1.13"
   }
 }
