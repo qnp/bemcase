@@ -1,6 +1,6 @@
 {
-  "name": "vuebem",
-  "displayName": "vuebem",
+  "name": "bemcase",
+  "displayName": "bemcase",
   "description": "Migrate kebab-cased Vue SFC BEM classes into Pascal/camel-cased ones",
   "version": "0.1.0",
   "engines": {
@@ -14,11 +14,11 @@
   "contributes": {
     "commands": [
       {
-        "command": "vuebem.formatToPascalCamelBem",
+        "command": "bemcase.formatToPascalCamelBem",
         "title": "Format to Pascal-camel-BEM"
       },
       {
-        "command": "vuebem.formatToKebabBem",
+        "command": "bemcase.formatToKebabBem",
         "title": "Format to kebab-BEM"
       }
     ]

@@ -124,11 +124,11 @@ async function executeChangeBemCase(mode: 'kebab' | 'pascal-camel') {
 
 export function activate(context: vscode.ExtensionContext) {
   const disposablePascalCamel = vscode.commands.registerCommand(
-    'vuebem.formatToPascalCamelBem',
+    'bemcase.formatToPascalCamelBem',
     () => executeChangeBemCase('pascal-camel')
   );
   const disposableKebab = vscode.commands.registerCommand(
-    'vuebem.formatToKebabBem',
+    'bemcase.formatToKebabBem',
     () => executeChangeBemCase('kebab')
   );
 
